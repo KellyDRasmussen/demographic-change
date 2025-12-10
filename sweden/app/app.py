@@ -8,6 +8,7 @@ import geopandas as gpd
 import plotly.express as px
 import plotly.graph_objects as go
 import json
+from pathlib import Path
 
 # Page config
 st.set_page_config(
@@ -16,12 +17,15 @@ st.set_page_config(
     layout="wide"
 )
 
+# Get the directory where this script is located
+APP_DIR = Path(__file__).parent
+
 # Load data
 @st.cache_data
 def load_data():
     """Load processed demographic data and geodata"""
-    df = pd.read_csv("processed_demographics.csv")
-    gdf = gpd.read_file("swedish_municipalities.geojson")
+    df = pd.read_csv(APP_DIR / "processed_demographics.csv")
+    gdf = gpd.read_file(APP_DIR / "swedish_municipalities.geojson")
 
     # Merge on kommun name
     gdf['kom_namn'] = gdf['kom_namn'].str.strip()
