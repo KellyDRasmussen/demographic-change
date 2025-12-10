@@ -257,7 +257,7 @@ else:  # Change view
 # Create the map
 fig = px.choropleth_mapbox(
     map_data,
-    geojson=json.loads(map_data.to_json()),
+    geojson=map_data.__geo_interface__,
     locations=map_data.index,
     color=map_column,
     hover_name='kom_namn',
